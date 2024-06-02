@@ -1,108 +1,118 @@
+/* Basic Reset */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    }
-    body {
-    background: #2f1002;
-    }
-    .todo-container {
-    color: white;
-    position: absolute;
-    top:50%;
-    left: 50%;
+  }
+  
+  body {
+    font-family: 'Baloo Bhai', cursive;
+    background-color: #2f1002;
     padding: 20px;
-    width: 600px;
-    transform: translate(-50%,-50%);
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 20px;
+    color: #333;
+  }
+  
+  /* Header */
+  h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 2.5em;
+    color: #4CAF50;
+  }
+  
+  h3 {
+    margin-top: 30px;
+    margin-bottom: 10px;
+    color: #333;
+  }
+  
+  /* Todo Container */
+  .todo {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .todo-header {
     display: flex;
-    flex-direction: column;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  
+  .todo-header label {
+    flex: 1 1 100px;
+  }
+  
+  .todo-header input,
+  .todo-header select,
+  .todo-header button {
+    flex: 1 1 200px;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    font-size: 1em;
+  }
+  
+  .todo-header button {
+    flex: 0 1 50px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .todo-header button:hover {
+    background-color: #45a049;
+  }
+  
+  /* Todo List */
+  .todo-list {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .todo-list-item {
+    display: flex;
     align-items: center;
-    }
-    .todo {
-    width: 400px;
-    }
-    .todo-container h2 {
+    background-color: #fff;
     padding: 10px;
-    font-family: 'Candal', sans-serif;
-    font-size: 2em;
-    }
-    .todo-header input {
-    width: 92%;
-    border: none;
     border-radius: 5px;
-    height: 20px;
-    font-family: 'Candal', sans-serif;
-    }
-    .todo-header button {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 10px;
+  }
+  
+  .todo-list-item form {
+    display: flex;
+    flex: 1;
+    gap: 10px;
+  }
+  
+  .todo-list-item input,
+  .todo-list-item select {
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+  }
+  
+  .todo-list-item button {
+    background-color: #2196F3;
     color: white;
     border: none;
-    border-radius: 50%;
-    cursor: pointer;
-    padding: 5px;
-    font-family: 'Candal', sans-serif;
-    background-color: rgb(119, 99, 11);
-    }
-    .todo-header button:hover {
-        background-color: #fdd75d;
-    }
-    .todo-container ul {
-    list-style: none;
-    }
-    .todo-list-item {
     padding: 10px;
-    margin-top: 10px;
-    border: none;
-    border-radius: 5px;
-    font-family: 'Candal', sans-serif;
-    background: rgba(0, 0, 0, 0.3);
-    display: flex;
-    flex-direction: row;
-    }
-    .todo-list-item form {
-    width: 100%;
-    display: flex;
-    }
-    .todo-list-item input {
-    flex-grow: 2;
-    margin-right: 20px;
-    border: none;
-    border-radius: 5px;
-    font-family: 'Candal', sans-serif;
-    }
-    .todo-list-item button {
-    color: white;
-    border: none;
     border-radius: 5px;
     cursor: pointer;
-    padding: 5px;
-    font-family: 'Candal', sans-serif;
-    background-color: rgb(51, 212, 100);
-    }
-    .todo-list-item .cancel {
-    color: white;
-    text-decoration: none;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    padding: 5px;
-    font-family: 'Candal', sans-serif;
-    background-color: rgb(223, 43, 43);
-    margin-left: 5px;
-    }
-    .todo-list-item div {
-    flex-grow: 2;
-    }
-    .todo-list-item .edit {
-    color : rgb(134, 247, 28);
-    margin-right: 10px;
-    cursor:pointer;
-    text-decoration: none;
-    }
-    .todo-list-item .remove {
-    color : rgb(242, 51, 51);
-    margin-right: 5px;
-    cursor:pointer;
-    text-decoration: none;
-    }
+  }
+  
+  .todo-list-item button:hover {
+    background-color: #0b7dda;
+  }
+  
+  .todo-list-item form:last-child button {
+    background-color: #f44336;
+  }
+  
+  .todo-list-item form:last-child button:hover {
+    background-color: #da190b;
+  }
+  

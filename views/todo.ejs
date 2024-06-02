@@ -7,24 +7,49 @@
 integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
 </head>
 <body>
-    <div class="todo-container">
         <h2>TaskEase:Miles of Style</h2>
         <div class="todo">
-            <form action="/" method="POST" class="todo-header">
-                <input type="text" name="content">
+            <form action="/todo" method="POST" class="todo-header">
+                <label for="title">Title:</label>
+                <input type="text" name="title" id="title" required>
+                <label for="description">Description:</label>
+                <input type="text" name="description" id="description">
+                <label for="dueDate">Due Date:</label>
+                <input type="date" name="dueDate" id="dueDate">
+                <label for="priority">Priority:</label>
+                <select name="priority" id="priority">
+                <option value="Low">Low</option>
+                <option value="Medium">Medium</option>
+                <option value="High">High</option>
+                </select>
+
                 <button type="submit"><span class="fas fa-plus"></span></button>
             </form>
+        </div>
+        <div>
+            <h3>Existing Tasks</h3>
             <ul class="todo-list">
                 <% todoTasks.forEach(details => { %>
                 <li class="todo-list-item">
-                    <div class="todo-list-item-name"><%= details.content %></div>
-                    <a href="/edit/<%= details._id %>" class="edit"><span class="fas fa-edit"></span></a>
-                    <a href="/remove/<%= details._id %>" class="remove"><span class="fas fa-times"></span></a>  
+                    <form action="/todo/<%=details._id %>" method="post">
+                        <input type="text" name="title" value="<%= details.title %>" required>
+                        <input type="text" name="description" value="<%= details.description %>">
+                        <input type="date" name="dueDate" value="<%= details.dueDate ? details.dueDate.toISOString().split('T')[0] : '' %>">
+                        <select name="priority">
+                        <option value="Low" <%= details.priority === 'Low' ? 'selected' : '' %>>Low</option>
+                        <option value="Medium" <%= details.priority === 'Medium' ? 'selected' : '' %>>Medium</option>
+                        <option value="High" <%= details.priority === 'High' ? 'selected' : '' %>>High</option>
+                        </select>
+                        <input type="checkbox" name="completed" <%= details.completed ? 'checked' : '' %>>
+                        <button type="submit"><span class="fas fa-edit"></button>
+                    </form>
+                    <form action="/todo/<%= details._id %>/delete" method="post" style="display:inline;">
+                    <button type="submit"><span class="fas fa-times"></button>
+                    </form>
                 </li>
                 <% }) %>
             </ul>
         </div>
-    </div>
 </body>
 
 
