@@ -13,13 +13,29 @@ function isAuthenticated(req, res, next){
 }
 
          /* CRUD operations */
-//CRUD(Read):To view data in the app
-//GET method
-router.get('/', isAuthenticated, async (req,res) => {
+//CRUD(Create):To view data in the database>collection(TaskEase>todoTasks)
+//POST method
+router.post('/tasks', isAuthenticated, async(req,res) =>{
+    const{ title, description, dueDate, priority } = req.body;
     try
     {
-        const tasks = await TodoTask.find({});
-        res.render("todo.ejs", { todoTasks: tasks });
+        const task = new TodoTask({ userId: req.session.user._id, title, description, dueDate, priority });
+        await task.save();
+        res.redirect("/tasks");
+    }
+    catch(err)
+    {
+        res.status(500).json({ error: err});
+    }
+});
+
+//CRUD(Read):To view data in the app
+//GET method
+router.get('/tasks', isAuthenticated, async (req,res) => {
+    try
+    {
+        const tasks = await TodoTask.find({ userId: req.session.user._id });
+        res.render('todo', { tasks });
     }
     catch(err)
     {
@@ -27,47 +43,16 @@ router.get('/', isAuthenticated, async (req,res) => {
     }
 });
 
-//CRUD(Create):To view data in the database>collection(TaskEase>todoTasks)
-//POST method
-router.post('/', isAuthenticated, async(req,res) =>{
-    const todoTask = new TodoTask
-    ({
-         content: req.body.content
-    });
-    try
-    {
-        await todoTask.save();
-        res.redirect("/");
-    }
-    catch(err)
-    {
-        res.status(500).json({ error: err});
-    }
-});
-
 //CRUD(Update)
 //UPDATE method
-router.route("/edit/:id")
-.get(isAuthenticated, async (req,res) =>
+router.post('/tasks/:id', isAuthenticated, async (req,res) =>
 {
+    const {id} = req.params;
+    const { title, description, dueDate, priority, completed } = req.body;
     try
     {
-        const id = req.params.id;
-        const tasks = await TodoTask.find({});
-        res.render("todoEdit.ejs", {todoTasks: tasks, idTask: id});
-    }
-    catch(err)
-    {
-        res.status(500).json({ error: err});
-    }
-})
-.post(isAuthenticated, async (req,res) =>
-{
-    try
-    {
-        const id = req.params.id;
-        await TodoTask.findByIdAndUpdate(id, { content: req.body.content });
-        res.redirect("/");
+        await TodoTask.findByIdAndUpdate(id,{title, description, dueDate, priority, completed });
+        res.redirect('/tasks');
     }
     catch(err)
     {
@@ -77,13 +62,13 @@ router.route("/edit/:id")
 
 //CRUD(Delete)
 //DELETE method
-router.route("/remove/:id").get(isAuthenticated, async (req,res) =>
+router.post('/tasks/:id/delete',isAuthenticated, async (req,res) =>
 {
+    const{ id } =  req.params;
     try
     {
-        const id = req.params.id;
         await TodoTask.findByIdAndDelete(id);
-        res.redirect("/");
+        res.redirect("/tasks");
     }
     catch(err)
     {

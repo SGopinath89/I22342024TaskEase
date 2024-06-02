@@ -41,6 +41,15 @@ app.set("view engine", "ejs");
 app.use("/",authenticationRoutes);
 app.use("/",tasksRoutes);
 
+// Root route handling
+app.get('/', (req, res) => {
+  if (req.session.user) {
+      res.redirect('/tasks'); // Redirect to Todo page if authenticated
+  } else {
+      res.redirect('/login'); // Redirect to login page if not authenticated
+  }
+});
+
 const PORT = process.env.PORT || 1071;
 app.listen(PORT, () => console.log(`Server Up and running on port ${PORT}`))
   .on('error', (err) => {
