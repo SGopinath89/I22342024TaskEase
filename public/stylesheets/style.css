@@ -42,7 +42,10 @@
     cursor: pointer;
     padding: 5px;
     font-family: 'Candal', sans-serif;
-    background-color: rgb(51, 212, 100);
+    background-color: rgb(119, 99, 11);
+    }
+    .todo-header button:hover {
+        background-color: #fdd75d;
     }
     .todo-container ul {
     list-style: none;
@@ -92,13 +95,13 @@
     flex-grow: 2;
     }
     .todo-list-item .edit {
-    color : rgb(143, 233, 58);
+    color : rgb(134, 247, 28);
     margin-right: 10px;
     cursor:pointer;
     text-decoration: none;
     }
     .todo-list-item .remove {
-    color : rgb(243, 96, 96);
+    color : rgb(242, 51, 51);
     margin-right: 5px;
     cursor:pointer;
     text-decoration: none;

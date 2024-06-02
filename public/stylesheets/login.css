@@ -1,0 +1,71 @@
+/* Styles for the body */
+body {
+    /*background: url('C:/Users/user/Desktop/TaskEase/images/img1.jpg') no-repeat center center fixed;*/
+    background: #2f1002;
+    background-size: cover;
+    font-family: Georgia,serif;
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Centering the div and giving it a background color */
+.login-container {
+    background-color: rgba(178, 119, 82, 0.788);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 400px;
+    text-align: center;
+}
+
+/* Styles for the login title */
+.login-container h2 {
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #2e0f0f;
+}
+
+/* Styles for the form */
+.login-container form {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Styles for the input fields */
+.login-container input[type="text"],
+.login-container input[type="password"] {
+    margin-bottom: 15px;
+    padding: 10px;
+    border: 2px solid #7a1d1d;
+    border-radius: 5px;
+}
+
+/* Styles for the login button */
+.login-container button {
+    padding: 10px;
+    background-color: #66261e;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.login-container button:hover {
+    background-color: #2f1002;
+}
+
+/* Styles for the register link */
+.login-container .register-link {
+    margin-top: 15px;
+    display: block;
+    color: #2f1002;
+    text-decoration: none;
+}
+
+.login-container .register-link:hover {
+    text-decoration: underline;
+}

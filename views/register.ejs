@@ -2,17 +2,17 @@
 <html>
 <head>
     <title>Register</title>
-    <link rel="stylesheet" href="/static/stylesheets/style.css" type="text/css">
+    <link rel="stylesheet" href="/static/stylesheets/register.css" type="text/css">
 </head>
 <body>
-    <div class="todo-container">
+    <div class="register-container">
         <h2>Register</h2>
         <form action="/register" method="POST">
             <input type="text" name="username" placeholder="Username" required>
             <input type="password" name="password" placeholder="Password" required>
             <button type="submit">Register</button>
-        </form>
-        <a href="/login">Already have an account? Login here.</a>
+        </form></br>
+        <a href="/login" class="login-link">Already have an account? Login here.</a>
     </div>
 </body>
 </html>
