@@ -22,4 +22,3 @@ userSchema.methods.comparePassword = function(password) {
 module.exports = mongoose.model('User', userSchema);
 
 
-//made and collection schema and exported it to use it at index.js

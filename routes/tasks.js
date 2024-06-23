@@ -11,9 +11,16 @@ function isAuthenticated(req, res, next){
         res.redirect('/login');
     }
 }
+// Root route handling
+router.get('/', (req, res) => {
+    if (req.session.user) {
+        res.redirect('/tasks'); // Redirect to Todo page if authenticated
+    } else {
+        res.redirect('/login'); // Redirect to login page if not authenticated
+    }
+});
 
-         /* CRUD operations */
-//CRUD(Create):To view data in the database>collection(TaskEase>todoTasks)
+//CRUD(Create)
 //POST method
 router.post('/tasks', isAuthenticated, async(req,res) =>{
     const{ title, description, dueDate, priority } = req.body;
@@ -29,7 +36,7 @@ router.post('/tasks', isAuthenticated, async(req,res) =>{
     }
 });
 
-//CRUD(Read):To view data in the app
+//CRUD(Read)
 //GET method
 router.get('/tasks', isAuthenticated, async (req,res) => {
     try
@@ -44,6 +51,17 @@ router.get('/tasks', isAuthenticated, async (req,res) => {
 });
 
 //CRUD(Update)
+//Fetch task details for the modal
+router.get('/tasks/:id', isAuthenticated, async (req, res) => {
+    const { id } = req.params;
+    try {
+        const task = await TodoTask.findById(id);
+        res.json(task);
+    } catch (err) {
+        res.status(400).send('Error fetching task');
+    }
+});
+
 //UPDATE method
 router.post('/tasks/:id', isAuthenticated, async (req,res) =>
 {
@@ -51,7 +69,7 @@ router.post('/tasks/:id', isAuthenticated, async (req,res) =>
     const { title, description, dueDate, priority, completed } = req.body;
     try
     {
-        await TodoTask.findByIdAndUpdate(id,{title, description, dueDate, priority, completed });
+        await TodoTask.findByIdAndUpdate(id,{title, description, dueDate, priority, completed: completed === 'true' });
         res.redirect('/tasks');
     }
     catch(err)

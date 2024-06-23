@@ -1,30 +1,39 @@
 const express = require("express");
-const app = express();
 const mongoose = require("mongoose");
 const session = require("express-session");
 const MongoDBStore = require("connect-mongodb-session")(session);
 
-//import models
-const User = require("./models/User");
-const TodoTask = require("./models/TodoTask");
+const app = express();
+const PORT = 1070;
 
 //import routes
 const authenticationRoutes = require("./routes/authentication");
 const tasksRoutes = require("./routes/tasks");
 
+// Middleware to serve static files
 app.use("/static", express.static("public"));
 
-//middleware
+//middleware to parse URL-encoded bodies
 app.use(express.urlencoded({ extended : true }));
 
-//connection to db
-mongoose.connect('mongodb://localhost:27017/TaskEase',{})
-  .then(() => console.log("Connected to db!"))
-  .catch(err => console.error("Could not connect to db", err));
-   
+//connection to MongoDB
+mongoose
+  .connect('mongodb://localhost:27017/TaskEase')
+  .then(() => {
+    console.log("Connected to MongoDB!");
+  })
+  .catch((err) => {
+     console.error("Error:", err);
+  });
+  
+// Session store configuration
 const store = new MongoDBStore({
     uri: 'mongodb://localhost:27017/TaskEase',
     collection: 'session'
+});
+
+store.on('error', function (error) {
+  console.error("Session store error", error);
 });
 
 app.use(session({
@@ -41,21 +50,8 @@ app.set("view engine", "ejs");
 app.use("/",authenticationRoutes);
 app.use("/",tasksRoutes);
 
-// Root route handling
-app.get('/', (req, res) => {
-  if (req.session.user) {
-      res.redirect('/tasks'); // Redirect to Todo page if authenticated
-  } else {
-      res.redirect('/login'); // Redirect to login page if not authenticated
-  }
+// Start the server
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
 });
 
-const PORT = process.env.PORT || 1071;
-app.listen(PORT, () => console.log(`Server Up and running on port ${PORT}`))
-  .on('error', (err) => {
-    if (err.code === 'EADDRINUSE') {
-      console.error(`Port ${PORT} is already in use`);
-    } else {
-      console.error(`Error starting server: ${err}`);
-    }
-  });
