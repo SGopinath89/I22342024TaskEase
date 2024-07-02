@@ -5,7 +5,7 @@ const todoTaskSchema = new mongoose.Schema
     title:{ type: String, required: true},
     description:{ type: String, required: true},
     dueDate:{ type: Date, required: true},
-    priority:{ type: String, enum: ['Low','Medium','High'], default: 'Medium'},
+    priority:{ type: String, enum: ['Low','Medium','High']},
     completed: { type: Boolean, default: false},
     
 });

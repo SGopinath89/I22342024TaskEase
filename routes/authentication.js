@@ -3,16 +3,6 @@ const router = express.Router();
 const bcrypt = require("bcrypt");
 const User = require("../models/User");
 
-//middleware to check if the user is authenticated
-function isAuthenticated(req, res, next){
-    if (req.session.user){
-        return next();
-    }
-    else{
-        res.redirect('/login');
-    }
-}
-
 //user registration route
 router.get('/register', (req,res) =>{
     res.render('register.ejs');
