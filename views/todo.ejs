@@ -17,22 +17,35 @@
     <h3 class="new-task">Add New Tasks</h3>
     <div class="todo">
         <form action="/tasks" method="POST" class="todo-task">
-            <label for="title">Title:</label>
-            <input type="text" name="title" id="title" required>
-            
-            <label for="description">Description:</label>
-            <input type="text" name="description" id="description" required>
-            
-            <label for="dueDate">Due Date:</label>
-            <input type="date" name="dueDate" id="dueDate" required>
-            
-            <label for="priority">Priority:</label>
-            <select name="priority" id="priority" required>
-                <option value="Low">Low</option>
-                <option value="Medium">Medium</option>
-                <option value="High">High</option>
-            </select>
-            <button type="submit"><span class="fas fa-plus"></span></button>
+            <div class="row">
+                <div class="form-group">
+                <label for="title">Title</label>
+                <input type="text" name="title" id="title" required>
+                </div>
+                <div class="form-group">
+                    <label for="description">Description</label>
+                    <input type="text" name="description" id="description" required>
+                </div>
+            </div>
+            <div class="row">
+
+                <div class="form-group">
+                <label for="dueDate">Due Date</label>
+                <input type="date" name="dueDate" id="dueDate" required>
+                </div>
+
+                <div class="form-group"><label for="priority">Priority</label>
+                    <select name="priority" id="priority" required>
+                        <option value="Low">Low</option>
+                        <option value="Medium">Medium</option>
+                        <option value="High">High</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="row button-row">
+                <button type="submit"><span class="fas fa-plus"></span></button>
+            </div>
         </form>
     </div>
     
@@ -42,11 +55,12 @@
         <% tasks.forEach(details => { %>
         <li class="todo-list-item">
             <form action="/tasks/<%= details._id %>" method="post" class="task-form">
-                <input type="checkbox" name="completed" <%= details.completed ? 'checked' : '' %>>
-                <input type="text" name="title" value="<%= details.title %>" required>
-                <input type="text" name="description" value="<%= details.description %>">
-                <input type="date" name="dueDate" value="<%= details.dueDate ? details.dueDate.toISOString().split('T')[0] : '' %>">
-                <select name="priority">
+
+                <input type="checkbox"  style="pointer-events: none" name="completed" <%= details.completed ? 'checked' : '' %>>
+                <input type="text"  style="pointer-events: none" name="title" value="<%= details.title %>" required>
+                <input type="text"  style="pointer-events: none" name="description" value="<%= details.description %>">
+                <input type="date"  style="pointer-events: none" name="dueDate" value="<%= details.dueDate ? details.dueDate.toISOString().split('T')[0] : '' %>">
+                <select name="priority"  style="pointer-events: none">
                     <option value="Low" <%= details.priority === 'Low' ? 'selected' : '' %>>Low</option>
                     <option value="Medium" <%= details.priority === 'Medium' ? 'selected' : '' %>>Medium</option>
                     <option value="High" <%= details.priority === 'High' ? 'selected' : '' %>>High</option>
@@ -70,20 +84,20 @@
             <div class="modal-bottom">
                 <form id="edit-form" action="/tasks/" method="POST">
                     <input type="hidden" name="_id" id="task-id">
-                    <label for="edit-title">Title:</label>
+                    <label for="edit-title">Title</label>
                     <input type="text" id="edit-title" name="title" required><br>
-                    <label for="edit-description">Description:</label>
+                    <label for="edit-description">Description</label>
                     <input type="text" id="edit-description" name="description" required><br>
-                    <label for="edit-dueDate">Due Date:</label>
+                    <label for="edit-dueDate">Due Date</label>
                     <input type="date" id="edit-dueDate" name="dueDate" required><br>
-                    <label for="edit-priority">Priority:</label>
+                    <label for="edit-priority">Priority</label>
                     <select id="edit-priority" name="priority" required>
                         <option value="Low">Low</option>
                         <option value="Medium">Medium</option>
                         <option value="High">High</option>
                     </select>
                     <div id="completed-wrapper">
-                        <input type="checkbox" id="edit-completed" name="completed" value="true">Completed
+                        <input type="checkbox" id="edit-completed" name="completed" value="true">&nbsp;Completed
                     </div>
                     <button type="submit" id="save-task">Save</button>
                 </form>
